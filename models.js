@@ -13,122 +13,92 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(100),
     unique: true,
   },
+}, {
+  tableName: 'user',
+  freezeTableName: true,
+  timestamps: true
 });
 
 const Image = sequelize.define('Image', {
-  image_url: {
-    type: DataTypes.STRING(500),
-    allowNull: false,
-  },
-  orientation: {
-    type: DataTypes.STRING(1),
-    allowNull: false,
-  },
+  image_url: DataTypes.STRING(500),
+  orientation: DataTypes.STRING(1),
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-  },
+  }
+}, {
+  tableName: 'image',
+  freezeTableName: true
 });
 
 const MenuCategory = sequelize.define('MenuCategory', {
-  name: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
+  name: DataTypes.STRING(100),
   slug: {
     type: DataTypes.STRING(100),
-    unique: true,
-    allowNull: false,
+    unique: true
   },
-  description: {
-    type: DataTypes.TEXT,
-  },
+  description: DataTypes.TEXT
+}, {
+  tableName: 'menu_category',
+  freezeTableName: true
 });
 
 const MenuItem = sequelize.define('MenuItem', {
-  title: {
-    type: DataTypes.STRING(200),
-    allowNull: false,
-  },
-  price: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-  },
-  currency: {
-    type: DataTypes.STRING(10),
-  },
-  rating: {
-    type: DataTypes.INTEGER,
-  },
-  text: {
-    type: DataTypes.TEXT,
-  },
-  image_url: {
-    type: DataTypes.STRING(500),
-  },
-  badge: {
-    type: DataTypes.STRING(200),
-  },
+  title: DataTypes.STRING(200),
+  price: DataTypes.FLOAT,
+  currency: DataTypes.STRING(10),
+  rating: DataTypes.INTEGER,
+  text: DataTypes.TEXT,
+  image_url: DataTypes.STRING(500),
+  badge: DataTypes.STRING(200)
+}, {
+  tableName: 'menu_item',
+  freezeTableName: true
 });
 
 const CategoryFaq = sequelize.define('CategoryFaq', {
-  name: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
+  name: DataTypes.STRING(100),
   created_at: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+    defaultValue: DataTypes.NOW
+  }
+}, {
+  tableName: 'category_faq',
+  freezeTableName: true
 });
 
 const FAQ = sequelize.define('FAQ', {
-  title: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  text: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
+  title: DataTypes.STRING(255),
+  text: DataTypes.TEXT,
   created_at: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+    defaultValue: DataTypes.NOW
   },
   updated_at: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+    defaultValue: DataTypes.NOW
+  }
+}, {
+  tableName: 'faq',
+  freezeTableName: true
 });
 
 const Review = sequelize.define('Review', {
-  title: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
-  name: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
-  rating: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
-  text: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
+  title: DataTypes.STRING(100),
+  name: DataTypes.STRING(50),
+  rating: DataTypes.INTEGER,
+  image: DataTypes.STRING(100),
+  text: DataTypes.TEXT
+}, {
+  tableName: 'review',
+  freezeTableName: true
 });
 
-// Define relationships
+// Relationships
 User.hasMany(Image);
 Image.belongsTo(User);
 
@@ -146,5 +116,5 @@ module.exports = {
   CategoryFaq,
   FAQ,
   Review,
+  sequelize
 };
-
