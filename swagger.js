@@ -10,8 +10,8 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Development server',
+        url: 'https://api.selera-rasa-sunda.id',
+        description: 'Production server',
       },
     ],
   },

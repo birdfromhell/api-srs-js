@@ -5,100 +5,166 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING(100),
     unique: true,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: DataTypes.STRING(100),
+    allowNull: false
   },
   username: {
     type: DataTypes.STRING(100),
     unique: true,
-  },
+    allowNull: false
+  }
 }, {
   tableName: 'user',
   freezeTableName: true,
-  timestamps: true
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 const Image = sequelize.define('Image', {
-  image_url: DataTypes.STRING(500),
-  orientation: DataTypes.STRING(1),
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+  image_url: {
+    type: DataTypes.STRING(500),
+    allowNull: false
+  },
+  orientation: {
+    type: DataTypes.STRING(1),
+    allowNull: true
   }
 }, {
   tableName: 'image',
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 const MenuCategory = sequelize.define('MenuCategory', {
-  name: DataTypes.STRING(100),
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
   slug: {
     type: DataTypes.STRING(100),
-    unique: true
+    unique: true,
+    allowNull: false
   },
-  description: DataTypes.TEXT
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  }
 }, {
   tableName: 'menu_category',
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 const MenuItem = sequelize.define('MenuItem', {
-  title: DataTypes.STRING(200),
-  price: DataTypes.FLOAT,
-  currency: DataTypes.STRING(10),
-  rating: DataTypes.INTEGER,
+  title: {
+    type: DataTypes.STRING(200),
+    allowNull: false
+  },
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  currency: {
+    type: DataTypes.STRING(10),
+    defaultValue: 'USD'
+  },
+  rating: {
+    type: DataTypes.INTEGER,
+    validate: {
+      min: 0,
+      max: 5
+    }
+  },
   text: DataTypes.TEXT,
   image_url: DataTypes.STRING(500),
   badge: DataTypes.STRING(200)
 }, {
   tableName: 'menu_item',
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 const CategoryFaq = sequelize.define('CategoryFaq', {
-  name: DataTypes.STRING(100),
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false
   }
 }, {
   tableName: 'category_faq',
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 const FAQ = sequelize.define('FAQ', {
-  title: DataTypes.STRING(255),
-  text: DataTypes.TEXT,
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+  title: {
+    type: DataTypes.STRING(255),
+    allowNull: false
   },
-  updated_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+  text: {
+    type: DataTypes.TEXT,
+    allowNull: false
   }
 }, {
   tableName: 'faq',
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 const Review = sequelize.define('Review', {
-  title: DataTypes.STRING(100),
-  name: DataTypes.STRING(50),
-  rating: DataTypes.INTEGER,
+  title: {
+    type: DataTypes.STRING(100),
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  rating: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1,
+      max: 5
+    }
+  },
   image: DataTypes.STRING(100),
-  text: DataTypes.TEXT
+  text: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  }
 }, {
   tableName: 'review',
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
-// Relationships
+// Define Relationships
 User.hasMany(Image);
 Image.belongsTo(User);
 
