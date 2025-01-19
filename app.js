@@ -59,8 +59,8 @@ app.use((err, req, res, next) => {
  */
 app.get('/users', async (req, res) => {
   try {
-    const users = await User.findAll();
-    res.json(users);
+    const user = await User.findAll();
+    res.json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
