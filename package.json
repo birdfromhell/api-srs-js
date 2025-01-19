@@ -4,8 +4,8 @@
   "description": "Restaurant API using Express.js",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development nodemon server.js"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
