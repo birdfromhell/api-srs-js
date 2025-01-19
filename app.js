@@ -9,6 +9,7 @@ const { Op } = require('sequelize');
 const { User, Image, MenuCategory, MenuItem, CategoryFaq, FAQ, Review } = require('./models');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
+const sequelize = require('./database');
 
 const app = express();
 app.use(express.json());
@@ -454,4 +455,18 @@ app.listen(PORT, () => {
  *         text:
  *           type: string
  */
-
+app.get('/test-db', async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    res.json({ 
+      message: 'Database connection successful',
+      status: 'connected'
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      message: 'Unable to connect to database',
+      error: error.message,
+      status: 'disconnected'
+    });
+  }
+});
